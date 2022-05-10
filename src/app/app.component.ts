@@ -10,26 +10,18 @@ import { AccountService } from './_services/account.service';
 })
 export class AppComponent implements OnInit{
   title = 'Datingwebspa';
-  constructor(private http:HttpClient,private accountService:AccountService){
+  constructor(private accountService:AccountService){
 
   }
   users:any;
   ngOnInit(): void {
     this.setCurrentUser();
-    this.getUser();
+   
     }
     setCurrentUser(){
      const user:User=JSON.parse(localStorage.getItem('user'));
      this.accountService.setCurrentUser(user);
         }
-    getUser()
-    {
-      this.http.get('https://localhost:44348/api/user').subscribe(response=>{
-        this.users=response;
-        console.log("poku",this.users)
-      }
-    
-      );
-    }
+ 
   }
 
