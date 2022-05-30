@@ -53,7 +53,7 @@ namespace DatingApp.Controllers
                 .SingleOrDefaultAsync(c => c.UserName == login.UserName);
             if (user == null)
             {
-                return Unauthorized(user + " Invalid");
+                return Unauthorized(login.UserName + " Invalid Username");
             }
             var hmc=new HMACSHA512(user.PasswordSalt);
             var compareHmc=hmc.ComputeHash(Encoding.UTF8.GetBytes(login.Password));
