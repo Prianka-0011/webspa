@@ -9,5 +9,6 @@ namespace DatingApp.Data
         {
         }
         public virtual DbSet<AppUser> Users { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
     }
 }

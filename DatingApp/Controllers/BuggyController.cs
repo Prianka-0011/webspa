@@ -36,7 +36,7 @@ namespace DatingApp.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetSeverError()
         {
-                var thing = _context.Users.Find(1);
+                var thing = _context.Users.Find(-1);
                 var thinkReturn = thing.ToString();
                 return thinkReturn;
             
