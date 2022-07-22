@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
-const httpHeader={
-headers: new HttpHeaders({
-  Authorization:'Bearer'+JSON.parse(localStorage.getItem('user'))?.token
-})
-}
+// const httpHeader={
+// headers: new HttpHeaders({
+//   Authorization:'Bearer'+JSON.parse(localStorage.getItem('user'))?.token
+// })
+// }
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +15,9 @@ export class MembersService {
 baseUrl=environment.apiUrl;
   constructor(private http:HttpClient) { }
   getMembers(){
-    return this.http.get<Member[]>(this.baseUrl+'user',httpHeader)
+    return this.http.get<Member[]>(this.baseUrl+'user')
   }
   getMember(userName:string){
-    return this.http.get<Member>(this.baseUrl+'user/GetUserByName'+userName,httpHeader)
+    return this.http.get<Member>(this.baseUrl+'user/'+userName)
   }
 }

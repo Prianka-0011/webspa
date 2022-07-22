@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { AccountService } from '../_services/account.service';
 import { User } from '../_models/user';
 
@@ -16,11 +16,16 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
    let currentUser:User;
-  // this.accountService.currentUser$.pipe(take(arg0: number)).subscribe(currentUser)
+   this.accountService.currentUser$.pipe(take(1)).subscribe(user=>currentUser=user);
+   if(currentUser){
+    request = request.clone({
+      setHeaders:{
+        Authorization: `Bearer ${currentUser.token}`
+      }
+    })
+   }
     return next.handle(request);
   }
 }
-function take(arg0: number) {
-  throw new Error('Function not implemented.');
-}
+
 
