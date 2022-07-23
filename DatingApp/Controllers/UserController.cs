@@ -24,7 +24,7 @@ namespace DatingApp.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult<List<MemberDto>>> GetUsers()
         {
             var users =await _userRepository.GetMembersAsync();
