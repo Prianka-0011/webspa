@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DatingApp.Controllers
 {
-    
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserRepository _userRepository;
@@ -24,7 +25,7 @@ namespace DatingApp.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [Authorize]
+       
         public async Task<ActionResult<List<MemberDto>>> GetUsers()
         {
             var users =await _userRepository.GetMembersAsync();
@@ -40,13 +41,26 @@ namespace DatingApp.Controllers
         //    return Ok(user);
         //}
         [HttpGet("{userName}")]
-        [AllowAnonymous]
+        
         public async Task<ActionResult<MemberDto>> GetUserByName(string userName)
         {
             //var user = await _userRepository.GetUserByNameAsync(userName);
             var user = await _userRepository.GetMemberAsync(userName);
             //var returnUser = _mapper.Map<MemberDto>(user);
             return Ok(user);
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto member)
+        {
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user=await _userRepository.GetUserByNameAsync(userName);
+            _mapper.Map(member, user);
+            _userRepository.Update(user);
+            if (await _userRepository.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            return BadRequest("Faild to update user");
         }
 
     }
