@@ -41,7 +41,10 @@ this.memberService.getMember(this.user.userName).subscribe(member=>{
 }
 updateMember(){
 console.log(this.member);
-this.toaster.success('Profile update success');
-this.editForm.reset(this.member);
+this.memberService.updateMember(this.member).subscribe(res=>{
+  this.toaster.success('Profile update success');
+  this.editForm.reset(this.member);
+})
+
 }
 }

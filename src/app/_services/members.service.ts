@@ -15,9 +15,13 @@ export class MembersService {
 baseUrl=environment.apiUrl;
   constructor(private http:HttpClient) { }
   getMembers(){
-    return this.http.get<Member[]>(this.baseUrl+'user')
+    return this.http.get<Member[]>(this.baseUrl+'user');
   }
   getMember(userName:string){
-    return this.http.get<Member>(this.baseUrl+'user/'+userName)
+    return this.http.get<Member>(this.baseUrl+'user/'+userName);
+  }
+  updateMember(member:Member)
+  {
+    return this.http.put<Member>(this.baseUrl+'user',member);
   }
 }
