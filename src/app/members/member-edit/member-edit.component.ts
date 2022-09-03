@@ -45,6 +45,6 @@ this.memberService.updateMember(this.member).subscribe(res=>{
   this.toaster.success('Profile update success');
   this.editForm.reset(this.member);
 })
-
+ 
 }
 }
