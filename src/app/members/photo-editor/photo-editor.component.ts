@@ -1,0 +1,16 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { Member } from 'src/app/_models/member';
+
+@Component({
+  selector: 'app-photo-editor',
+  templateUrl: './photo-editor.component.html',
+  styleUrls: ['./photo-editor.component.scss']
+})
+export class PhotoEditorComponent implements OnInit {
+
+  constructor() { }
+@Input() member:Member;
+  ngOnInit(): void {
+  }
+
+}
