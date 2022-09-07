@@ -31,7 +31,7 @@ namespace DatingApp.Services
                 var uploadParam = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
-                    Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face")
+                    Transformation = new Transformation().Height(128).Width(128).Crop("fill").Gravity("face")
                 };
                 uploadResult = await _cloudinary.UploadAsync(uploadParam);
             }

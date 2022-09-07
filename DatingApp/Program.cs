@@ -18,17 +18,17 @@ namespace DatingApp
         {
           var host = CreateHostBuilder(args).Build();
             using var scop = host.Services.CreateScope();
-            var services = scop.ServiceProvider;
-            try
-            {
-                var context = services.GetRequiredService<DataContext>();
-                await context.Database.MigrateAsync();
-                await Seed.SeedUser(context);
-            }catch(Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occured");
-            }
+            //var services = scop.ServiceProvider;
+            //try
+            //{
+            //    var context = services.GetRequiredService<DataContext>();
+            //    await context.Database.MigrateAsync();
+            //    await Seed.SeedUser(context);
+            //}catch(Exception ex)
+            //{
+            //    var logger = services.GetRequiredService<ILogger<Program>>();
+            //    logger.LogError(ex, "An error occured");
+            //}
             await host.RunAsync();
         }
 

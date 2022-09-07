@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,11 +35,21 @@ namespace DatingApp
             services.AddApplicationService(Configuration);
             services.AddIdentityServices(Configuration);
            services.AddControllers();
+            var allowOrigins = Configuration.GetValue<string>("AllowOrigins");
             services.AddCors(options =>
-
             {
-            options.AddPolicy( name: "AllowOrigin",builder =>{
-            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.WithOrigins(allowOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                      .AllowCredentials();
+                });
+                options.AddPolicy("AllowHeaders", builder =>
+                {
+                    builder.WithOrigins(allowOrigins)
+                            .WithHeaders(HeaderNames.ContentType, HeaderNames.Server, HeaderNames.AccessControlAllowHeaders, HeaderNames.AccessControlExposeHeaders, "x-custom-header", "x-path", "x-record-in-use", HeaderNames.ContentDisposition);
+                });
             });
             services.AddSwaggerGen(c =>
             {
@@ -66,7 +77,7 @@ namespace DatingApp
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors("CorsPolicy");
             //authentication
             app.UseAuthentication();
             app.UseAuthorization();

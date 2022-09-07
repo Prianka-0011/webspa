@@ -43,7 +43,7 @@ namespace DatingApp.Controllers
         //    var user = await _userRepository.GetUserByIdAsync(id);
         //    return Ok(user);
         //}
-        [HttpGet("{userName}")]
+        [HttpGet("{userName}", Name = "GetUserByName")]
         
         public async Task<ActionResult<MemberDto>> GetUserByName(string userName)
         {
@@ -66,7 +66,7 @@ namespace DatingApp.Controllers
             return BadRequest("Faild to update user");
         }
        
-        [HttpPost("add-photo")]
+        [HttpPost("addphoto")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
             var user=await _userRepository.GetUserByNameAsync(User.GetUserName());
