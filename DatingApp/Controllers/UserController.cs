@@ -92,5 +92,28 @@ namespace DatingApp.Controllers
             }
             return BadRequest("Problem Adding Photo");
         }
+        [HttpPut("set-mail-photo/{photoId}")]
+        public async Task<ActionResult>SetMainPhoto(int photoId)
+        {
+            var user= await _userRepository.GetUserByNameAsync(User.GetUserName());
+            var photo=user.Photos.FirstOrDefault(x=>x.Id==photoId);
+            if (photo.IsMain)
+            {
+                return BadRequest("This is already your main photo");
+                
+            }
+            var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
+            if (currentMain != null)
+            {
+                currentMain.IsMain = false;
+                photo.IsMain = true;
+            }
+            if (await _userRepository.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            return BadRequest("Faild to set main photo");
+            
+        }
     }
 }
