@@ -8,3 +8,10 @@
 .dropdown-menu, .dropdown-item{
     cursor: pointer;
 }
+.dropdown img{
+    max-height: 50px;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    display: inline;
+    margin:0 4px;
+}

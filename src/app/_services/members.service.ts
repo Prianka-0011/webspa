@@ -41,4 +41,8 @@ members:Member[]=[];
   })
     );
   }
+  setMainPhoto(photoId:number)
+  {
+    return this.http.put(this.baseUrl+'user/set-mail-photo/'+photoId,{});
+  }
 }
