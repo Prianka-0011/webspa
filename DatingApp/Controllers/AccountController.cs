@@ -49,7 +49,7 @@ namespace DatingApp.Controllers
         [HttpPost("login")]
         public async Task <ActionResult<UserDto>>Login(LoginDto login)
         {
-            var user =await  _context.Users
+            var user =await  _context.Users.Include(c=>c.Photos)
                 .SingleOrDefaultAsync(c => c.UserName == login.UserName);
             if (user == null)
             {
@@ -67,7 +67,9 @@ namespace DatingApp.Controllers
             return new UserDto
             {
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl=user.Photos.FirstOrDefault(c=>c.IsMain)?.Url
+                
             };
         }
         private async Task<bool> UserExist(string userName)
