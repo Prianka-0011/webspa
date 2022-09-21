@@ -1,4 +1,4 @@
-<form #registerForm="ngForm" (ngSubmit)="register()">
+<!-- <form #registerForm="ngForm" (ngSubmit)="register()">
 <h2 class="text-center text-primary">Sign Up</h2>
 <div class="form-group mb-3">
     <input type="text" class="form-control" name="userName"
@@ -13,4 +13,71 @@
     <button class="btn btn-success" style="margin-right: 6px;">Register</button>
     <button class="btn btn-danger"(click)="cancel()" style="margin-right: 3px;">Cancel</button>
 </div>
-</form>
+<div class="form-group mb-3">
+        <input
+        [class.is-invalid]='registerForm.get("password").errors 
+        && registerForm.get("password").touched'
+        type="password" class="form-control" formControlName="password"
+        placeholder="Password" >
+        <div *ngIf="registerForm.get('password').hasError('required')" class="invalid-feedback">Please Enter A Password</div>
+        <div *ngIf="registerForm.get('password').hasError('minlength')" class="invalid-feedback">Password Must be at least 4 characters</div>
+        <div *ngIf="registerForm.get('password').hasError('maxlength')" class="invalid-feedback">Password Must be at most 8 characters</div>
+    </div>
+</form> -->
+
+<!-- 
+<form [formGroup]='registerForm' (ngSubmit)="register()">
+    <h2 class="text-center text-primary">Sign Up</h2>
+    <div class="form-group mb-3">
+        <input
+        [class.is-invalid]='registerForm.get("userName").errors 
+        && registerForm.get("userName").touched'
+         type="text" class="form-control" formControlName="userName"
+        placeholder="Username" >
+        <div class="invalid-feedback">Please Enter A Valid UserName</div>
+    </div>
+    
+    <div class="form-group mb-3">
+        <input
+        [class.is-invalid]='registerForm.get("password").errors 
+        && registerForm.get("password").touched'
+        type="password" class="form-control" formControlName="password"
+        placeholder="Password" >
+        <div *ngIf="registerForm.get('password').hasError('required')" class="invalid-feedback">Please Enter A Password</div>
+        <div *ngIf="registerForm.get('password').hasError('minlength')" class="invalid-feedback">Password Must be at least 4 characters</div>
+        <div *ngIf="registerForm.get('password').hasError('maxlength')" class="invalid-feedback">Password Must be at most 8 characters</div>
+    </div>
+    <div class="form-group mb-3">
+        <input
+        [class.is-invalid]='registerForm.get("confirmPassword").errors 
+        && registerForm.get("confirmPassword").touched'
+         type="password" class="form-control" formControlName="confirmPassword"
+        placeholder="confirm Password" >
+        <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="invalid-feedback">Please Enter A Confirm Password</div>
+        <div *ngIf="registerForm.get('confirmPassword').hasError('isMatching')" class="invalid-feedback">Confirm Password Must Match Password</div>
+        
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success" style="margin-right: 6px;">Register</button>
+        <button class="btn btn-danger"(click)="cancel()" style="margin-right: 3px;">Cancel</button>
+    </div>
+    </form> -->
+ 
+
+    <form [formGroup]='registerForm' (ngSubmit)="register()">
+        <h2 class="text-center text-primary">Sign Up</h2>
+        <app-text-input 
+        [formControl]='registerForm.controls["userName"]'[label]='"UserName"'>
+    </app-text-input>
+        <app-text-input 
+        [formControl]='registerForm.controls["password"]'[label]='"Password"' [type]='"password"'>
+    </app-text-input>
+        <app-text-input 
+        [formControl]='registerForm.controls["confirmPassword"]'[label]='"confirmPassword"' [type]='"password"'>
+    </app-text-input>
+      
+        <div class="form-group text-center">
+            <button class="btn btn-success" style="margin-right: 6px;">Register</button>
+            <button class="btn btn-danger"(click)="cancel()" style="margin-right: 3px;">Cancel</button>
+        </div>
+        </form>

@@ -41,6 +41,9 @@ members:Member[]=[];
   })
     );
   }
+  deletePhoto(photoId){
+   return this.http.delete(this.baseUrl+'user/delete-photo/'+photoId);
+  }
   setMainPhoto(photoId:number)
   {
     return this.http.put(this.baseUrl+'user/set-mail-photo/'+photoId,{});
