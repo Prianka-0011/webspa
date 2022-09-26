@@ -12,11 +12,14 @@ import { AccountService } from '../_services/account.service';
 export class RegisterComponent implements OnInit {
  model:any={};
  registerForm:FormGroup;
+ maxDate:Date;
  @Output() cancelRegister: EventEmitter<boolean> = new EventEmitter();
   constructor(private accountServive:AccountService,private toastr:ToastrService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
    this. initializeForm();
+   this.maxDate=new Date();
+   this.maxDate.setFullYear(this.maxDate.getFullYear()-18);
   }
   initializeForm()
   {
