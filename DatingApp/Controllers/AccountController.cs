@@ -1,4 +1,5 @@
-﻿using DatingApp.Data;
+﻿using AutoMapper;
+using DatingApp.Data;
 using DatingApp.DTOs;
 using DatingApp.Entities;
 using DatingApp.Interfaces;
@@ -17,10 +18,13 @@ namespace DatingApp.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+
+        public AccountController(DataContext context, ITokenService tokenService,IMapper mapper)
         {
             _context = context;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
         [HttpPost("register")]
         
@@ -30,14 +34,13 @@ namespace DatingApp.Controllers
             {
                 return BadRequest(register.UserName + " already taken");
             }
-            
+            var user=_mapper.Map<AppUser>(register);
             using var hmc = new HMACSHA512();
-            AppUser user = new AppUser()
-            {
-                UserName = register.UserName,
-                Password = hmc.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-                PasswordSalt = hmc.Key
-            };
+
+            user.UserName = register.UserName.ToLower();
+            user.Password = hmc.ComputeHash(Encoding.UTF8.GetBytes(register.Password));
+            user.PasswordSalt = hmc.Key;
+            
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return new UserDto
@@ -68,8 +71,8 @@ namespace DatingApp.Controllers
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                PhotoUrl=user.Photos.FirstOrDefault(c=>c.IsMain)?.Url
-                
+                PhotoUrl=user.Photos.FirstOrDefault(c=>c.IsMain)?.Url,
+                KnownAs=user.KnownAs 
             };
         }
         private async Task<bool> UserExist(string userName)
