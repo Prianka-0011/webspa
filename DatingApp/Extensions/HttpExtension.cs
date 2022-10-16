@@ -10,6 +10,10 @@ namespace DatingApp.Extensions
             ,int itemPerPage,int totalItems,int totalPages)
         {
             var paginationHeader = new PaginationHeader(currntPage, itemPerPage, totalItems, totalPages);
+            var option = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
             response.Headers.Add("Pagination",JsonSerializer.Serialize(paginationHeader));
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
