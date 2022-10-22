@@ -14,7 +14,7 @@ export class MemberListComponent implements OnInit {
 members:Member[];
 pagination:Pagination;
 pageNumber=1;
-pageSize=3;
+pageSize=5;
   //members$:Observable<Member[]>;
   constructor(private memberService:MembersService) { }
 
@@ -23,7 +23,8 @@ pageSize=3;
   }
   loadMembers()
   {
-   // this.members$=this.memberService.getMembers();
+  
+   //this.members$=this.memberService.getMembers();
    this.memberService.getMembers(this.pageNumber,this.pageSize).subscribe(
     res=>{
       this.members=res.result;
@@ -31,5 +32,9 @@ pageSize=3;
     }
     )
   }
-
+  pageChangedeve(event:any)
+  {
+   this.pageNumber=event.page;
+   this.loadMembers()
+  }
 }
