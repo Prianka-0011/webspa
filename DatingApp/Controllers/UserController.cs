@@ -34,16 +34,13 @@ namespace DatingApp.Controllers
         {
             var user =await _userRepository.GetUserByNameAsync(User.GetUserName());
             userParam.CurrentUsername = user.UserName;
-            if (string.IsNullOrEmpty(userParam.Gender)
+            if (string.IsNullOrEmpty(userParam.Gender))
 
             {
-                userParam.Gender = user.Gender == "male" ? "femal" : "male";
+                userParam.Gender = user.Gender == "male" ? "female" : "male";
             }
                   
-            if (string.IsNullOrEmpty(userParam.Gender)
-            {
-
-            }
+           
             var users =await _userRepository.GetMembersAsync(userParam);
           
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount

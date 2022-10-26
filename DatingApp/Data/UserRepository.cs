@@ -38,7 +38,7 @@ namespace DatingApp.Data
                 //.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking()
                 .AsQueryable();
             query = query.Where(c => c.UserName != userParams.CurrentUsername);
-            query = query.Where(c => c.Gender != userParams.Gender);
+            query = query.Where(c => c.Gender == userParams.Gender);
             var minDob=DateTime.Today.AddYears(-userParams.MaxAge-1);
             var maxDob=DateTime.Today.AddYears(-userParams.MinAge);
             query = query.Where(c => c.DateOfBirth >=minDob && c.DateOfBirth<=maxDob);
