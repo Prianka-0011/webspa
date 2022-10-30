@@ -7,9 +7,9 @@ namespace DatingApp.Extensions
     public static class HttpExtension
     {
         public static void AddPaginationHeader(this HttpResponse response, int currentPage
-            , int itemPerPage,int totalItems,int totalPages)
+            , int itemPerPage,int totalItem,int totalPages)
         {
-            var paginationHeader = new PaginationHeader(currentPage, itemPerPage, totalItems, totalPages);
+            var paginationHeader = new PaginationHeader(currentPage, itemPerPage, totalItem, totalPages);
             var option = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
