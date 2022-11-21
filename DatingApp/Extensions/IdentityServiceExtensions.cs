@@ -10,6 +10,7 @@ namespace DatingApp.Extensions
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services,IConfiguration configuration)
         {
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
