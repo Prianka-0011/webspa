@@ -23,10 +23,11 @@ genderList=[{ value:'male',display:'Males'},
 
   //members$:Observable<Member[]>;
   constructor(private memberService:MembersService,private accountService:AccountService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user=>{
-      this.user=user;
-      this.userParams=new UserParams(user);
-    })
+    // this.accountService.currentUser$.pipe(take(1)).subscribe(user=>{
+    //   this.user=user;
+    //   this.userParams=new UserParams(user);
+    // })
+    this.userParams=this.memberService.getUserParams();
    }
 
   ngOnInit(): void {
@@ -34,7 +35,7 @@ genderList=[{ value:'male',display:'Males'},
   }
   loadMembers()
   {
-  
+    this.memberService.setUserParams(this.userParams);
    //this.members$=this.memberService.getMembers();
    this.memberService.getMembers(this.userParams).subscribe(
     res=>{
@@ -51,6 +52,7 @@ genderList=[{ value:'male',display:'Males'},
   pageChangedeve(event:any)
   {
    this.userParams.pageNumber=event.page;
+   this.memberService.setUserParams(this.userParams)
    this.loadMembers()
   }
 }
