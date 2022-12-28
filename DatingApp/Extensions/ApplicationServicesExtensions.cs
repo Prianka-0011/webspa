@@ -17,6 +17,7 @@ namespace DatingApp.Extensions
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>();
            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
