@@ -23,10 +23,6 @@ genderList=[{ value:'male',display:'Males'},
 
   //members$:Observable<Member[]>;
   constructor(private memberService:MembersService,private accountService:AccountService) {
-    // this.accountService.currentUser$.pipe(take(1)).subscribe(user=>{
-    //   this.user=user;
-    //   this.userParams=new UserParams(user);
-    // })
     this.userParams=this.memberService.getUserParams();
    }
 
