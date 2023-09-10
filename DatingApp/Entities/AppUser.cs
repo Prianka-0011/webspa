@@ -23,6 +23,8 @@ namespace DatingApp.Entities
         public ICollection<Photo> Photos { get; set; }
         public ICollection<UserLike> LikedByUsers { get; set; }
         public ICollection<UserLike> LikedUsers { get; set; }
+        public List<Message>MessageSent { get; set; }
+        public List<Message>MessageReceive { get; set; }
         //public int GetAge()
         //{
         //    return DateOfBirth.CalculateAge();

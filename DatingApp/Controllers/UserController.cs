@@ -43,8 +43,8 @@ namespace DatingApp.Controllers
            
             var users =await _userRepository.GetMembersAsync(userParam);
           
-            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount
-                , users.TotalPage);
+            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage,
+                users.PageSize, users.TotalCount, users.TotalPage));
             //var returnUser=_mapper.Map<IEnumerable<MemberDto>>(users);
             return Ok(users);
         }

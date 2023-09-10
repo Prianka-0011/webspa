@@ -20,6 +20,7 @@ namespace DatingApp.Extensions
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAutoMapper(typeof(AutoMappeProfiles).Assembly);
             services.AddDbContext<DataContext>(options => options.UseSqlite(configuration.GetConnectionString("DatabaseConnection")));
